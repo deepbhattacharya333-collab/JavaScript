@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Grade Calculator</title>
+</head>
+<body>
+
+  <h2>Student Grade Calculator</h2>
+
+  <form id="studentForm">
+    <label>Student Name:</label>
+    <input type="text" id="studentName" required placeholder="Enter full name"><br><br>
+
+    <label>Age:</label>
+    <input type="number" id="studentAge" min="5" max="100" required placeholder="Enter age"><br><br>
+
+    <label>Subject 1 Marks:</label>
+    <input type="number" id="mark1" min="0" max="100" required placeholder="e.g., 80"><br><br>
+
+    <label>Subject 2 Marks:</label>
+    <input type="number" id="mark2" min="0" max="100" required placeholder="e.g., 75"><br><br>
+
+    <label>Subject 3 Marks:</label>
+    <input type="number" id="mark3" min="0" max="100" required placeholder="e.g., 90"><br><br>
+
+    <button type="submit">Calculate Grade</button>
+  </form>
+
+  <h3>Result:</h3>
+  <p id="output"></p>
+
+  <script>
+    // When form is submitted, run this function
+    document.getElementById("studentForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Stop form from reloading page
+
+      // Get values from input boxes
+      let name = document.getElementById("studentName").value;
+      let age = document.getElementById("studentAge").value;
+      let mark1 = Number(document.getElementById("mark1").value);
+      let mark2 = Number(document.getElementById("mark2").value);
+      let mark3 = Number(document.getElementById("mark3").value);
+
+      // Check if marks are valid
+      if (
+        mark1 < 0 || mark1 > 100 ||
+        mark2 < 0 || mark2 > 100 ||
+        mark3 < 0 || mark3 > 100
+      ) {
+        alert("Please enter marks between 0 and 100 only!");
+        return;
+      }
+
+      // Calculate total and percentage
+      let total = mark1 + mark2 + mark3;
+      let percentage = (total / 300) * 100;
+
+      // Decide grade using simple if-else
+      let grade;
+      if (percentage >= 85) {
+        grade = "A";
+      } else if (percentage >= 70) {
+        grade = "B";
+      } else if (percentage >= 55) {
+        grade = "C";
+      } else if (percentage >= 35) {
+        grade = "D";
+      } else {
+        grade = "Fail";
+      }
+
+      // Show output neatly
+      document.getElementById("output").innerHTML =
+        "Name: " + name + "<br>" +
+        "Age: " + age + "<br>" +
+        "Total Marks: " + total + " / 300<br>" +
+        "Percentage: " + percentage.toFixed(2) + "%<br>" +
+        "Grade: " + grade;
+    });
+  </script>
+
+</body>
+</html>
